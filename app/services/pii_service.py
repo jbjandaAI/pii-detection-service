@@ -9,24 +9,28 @@ OLLAMA_HOST = os.getenv("OLLAMA_HOST", "localhost:11434")
 MODEL_NAME = os.getenv("MODEL_NAME", "gemma:2b")
 
 SYSTEM_PROMPT = """
-You are a highly accurate PII (Personally Identifiable Information) detection system.
-Your goal is to analyze the provided text and extract ALL instances of PII.
-Return ONLY a valid JSON object. Do not include any explanation or markdown formatting.
+You are a PII detection tool. Extract PII from the text.
+Return ONLY valid JSON. No Markdown. No Explanations.
 
-Target Entities:
-- NAME_STUDENT (Full names of people)
-- EMAIL (Email addresses)
-- PHONE_NUM (Phone numbers)
-- ID_NUM (Identification numbers like SSS, Passport)
-- STREET_ADDRESS (Physical addresses)
-- USERNAME (Social media handles)
+CLASSES:
+- NAME_STUDENT (Person Names)
+- EMAIL
+- PHONE_NUM
+- ID_NUM
+- USERNAME
 
-JSON Format:
+EXAMPLE INPUT: "Call Maria Santos"
+EXAMPLE JSON:
 {
   "entities": [
-    {"label": "NAME_STUDENT", "text": "John Doe", "start": 0, "end": 8},
-    ...
+    {"label": "NAME_STUDENT", "text": "Maria Santos"}
   ]
+}
+
+EXAMPLE INPUT: "No PII here"
+EXAMPLE JSON:
+{
+  "entities": []
 }
 """
 
