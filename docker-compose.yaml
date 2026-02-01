@@ -32,7 +32,7 @@ services:
     environment:
       - DATABASE_URL=postgresql+asyncpg://${DB_USER:-user}:${DB_PASS:-password}@db:5432/${DB_NAME:-pii_db}
       - OLLAMA_HOST=host.docker.internal:11434  # Connects to Ollama running on your Windows host
-      - MODEL_NAME=gemma:2b # Using a small gemma for dev
+      - MODEL_NAME=gemma3:1b # Corrected to Gemma 3 1B
     extra_hosts:
       - "host.docker.internal:host-gateway" # Allows container to talk to localhost (Ollama)
     networks:
