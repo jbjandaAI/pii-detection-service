@@ -1,5 +1,8 @@
 # PII Detection Service - Onboarding Guide
 
+This pii-detection-service repository is a microservices-based application designed to detect Personally Identifiable Information (PII) in text (specifically essays) using a deep learning model (DeBERTa). It was built for an AI course (AI 231) at UP Diliman.
+
+  Here is a comprehensive breakdown from start to finish to help you ace your interview.
 ## 1. High-Level Architecture
 The system is split into two main services and uses a reverse proxy:
 
