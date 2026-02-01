@@ -1,82 +1,72 @@
-# PII Detection Service
+# PII Detection Service - 2026 Modernization (Refactor)
 
-This repository is the codebase for the implementation of a PII detection service for the subject AI 231 2nd Semester 2023-2024.
+This branch represents a complete architectural overhaul of the legacy PII Detection System to meet the standards of **2026 Enterprise AI Engineering**. It focuses on **Data Privacy**, **Asynchronous Scalability**, and **Strict Typing**.
 
-# Contributors
-Key contributors to this repository are the following:
-1. Jan Lendl Uy
-2. Christian Balanquit
-3. James Benedict Janda
-4. Al John Lexter Lozano
+## 🏗 Architecture Overview
 
-# Project Architecture
+| Component | Technology | Reasoning (The "Why") |
+| :--- | :--- | :--- |
+| **Model** | **Gemma 2 (2B/9B) via Ollama** | Moves away from simple NER tagging (DeBERTa) to **Small Language Models (SLMs)**. This allows for reasoning ("Why is this PII?") and runs locally (On-Premise) ensuring no data leaves the secure network. |
+| **Backend** | **FastAPI (Python 3.12)** | Replaces Flask. Provides **native AsyncIO** support for high concurrency (handling thousands of requests while the AI thinks) and **Pydantic** for strict data validation. |
+| **Database** | **PostgreSQL + pgvector** | Upgraded to support **Vector Embeddings**. This future-proofs the app for "Semantic Search" (finding similar PII leak patterns) while keeping the Audit Trail in a robust relational DB. |
+| **ORM** | **SQLAlchemy 2.0 (Async)** | Fully asynchronous database access prevents the API from blocking during heavy write operations. |
 
-## Project Components
-* PII Identifier
-* PII Annotator
-* PII Retrainer
+## 🚀 Getting Started
 
-## Structure
+### Prerequisites
+1.  **Docker Desktop** installed.
+2.  **Ollama** installed on your host machine (Windows/Mac/Linux).
+    *   Run `ollama run gemma:2b` to pull the model.
 
-### A. Proposed Directory Structure
-* /project_root
-  * /app
-    * \__init\__.py
-    * /services
-      * \__init\__.py
-      * /backend_service
-        * preprocessor.py
-        * response_handler.py
-        * validation_preprocessor.py
-      * /ml_service
-        * predictor.py
-        * model_retrainer.py
-        * model_storage_manager.py
-    * /infra
-      * \__init\__.py
-      * database_manager.py
-      * document_table.py
-      * object_store_manager.py
-      * backup_store_manager.py
-    * /static
-      * ...
-    * /templates
-      * ...
-  * /tests
-    * ...
-  * config.py
-  * run.py
+### Installation
+1.  **Clone & Switch Branch**
+    ```bash
+    git checkout refactor/2026-tech-stack
+    ```
 
+2.  **Start the Stack**
+    ```bash
+    docker-compose up --build
+    ```
+    *   The API will be available at `http://localhost:8000`.
+    *   The Database will be available at `localhost:5432`.
 
-## B. Branching Strategy
-* eda
-* model_training
-* apps
-  * apps/frontend
-  * apps/backend
-  * apps/ml_service
-* infra
-* cicd
+## 🔌 API Endpoints
 
-## CICD Workflows
-* Infra Setup: make sure infra setup is still intact
-* Backend Services
-* ML Services
+### `POST /detect`
+The core endpoint. Accepts raw text and returns structured PII entities.
 
-Action Items:
-- modify boto3 s3 client creation by utilizing AWS ACCESS KEY & SECRET KEY
-
-## CICD Components
-* Pylint
-* Deploy to Backend ECS
-* Deploy to ML ECS
-
-## D. Deployment
-### Push to ECR
+**Request:**
+```json
+{
+  "text": "My name is Juan dela Cruz and my email is juan@bpi.com.ph"
+}
 ```
-docker build -t pii-detection-service-ml . -f deploy/ml-Dockerfile
 
-docker build -t pii-detection-service-backend . -f deploy/backend-Dockerfile
-
-docker build -t pii-detection-service-nginx ./deploy -f deploy/nginx-Dockerfile
+**Response:**
+```json
+{
+  "original_text": "...",
+  "entities": [
+    {
+      "label": "NAME_STUDENT",
+      "text": "Juan dela Cruz",
+      "start": 11,
+      "end": 25
+    },
+    {
+      "label": "EMAIL",
+      "text": "juan@bpi.com.ph",
+      "start": 42,
+      "end": 57
+    }
+  ],
+  "model_used": "gemma:2b",
+  "processing_time": 0.45
+}
 ```
+
+## 🛡 Security & Compliance (Interview Notes)
+*   **Audit Trail:** Every request is logged to the `documents` table in Postgres.
+*   **Data Sovereignty:** The AI model runs on `host.docker.internal`. No data is sent to OpenAI/Google APIs.
+*   **Type Safety:** `app/schemas/pii.py` ensures that malformed data is rejected before it even hits the business logic.
