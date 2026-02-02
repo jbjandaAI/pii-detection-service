@@ -3,7 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select, desc
+from typing import List
 from app.schemas.pii import PiiRequest, PiiResponse
+from app.schemas.document import DocumentLog
 from app.services.pii_service import PiiService
 from app.infra.database import engine, Base, get_db
 from app.models.document import Document
@@ -65,6 +68,17 @@ async def detect_pii(
     await db.refresh(new_doc)
     
     return response
+
+@app.get("/documents", response_model=List[DocumentLog])
+async def get_documents(skip: int = 0, limit: int = 20, db: AsyncSession = Depends(get_db)):
+    """
+    Fetch audit logs (documents) from the database.
+    """
+    result = await db.execute(
+        select(Document).order_by(desc(Document.created_at)).offset(skip).limit(limit)
+    )
+    documents = result.scalars().all()
+    return documents
 
 @app.get("/")
 async def root():

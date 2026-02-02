@@ -9,7 +9,7 @@ This document outlines the strategic plan to transition the PII Detection Servic
 ## 🎨 Phase 2: User Experience (Frontend)
 - [x] **Modern UI:** Initialize a **Next.js (TypeScript)** project to replace the legacy Jinja2 templates.
 - [x] **Real-time Highlighting:** Implement a text editor that uses the `start`/`end` indices from the API to highlight PII dynamically as the user types (or on submit).
-- [ ] **Dashboard:** Create a view for the Audit Logs (stored in Postgres) to visualize detection stats.
+- [x] **Dashboard:** Create a view for the Audit Logs (stored in Postgres) to visualize detection stats.
 
 ## 🧠 Phase 3: Advanced Intelligence (Semantic Search)
 - [ ] **Vector Embeddings:** Utilize the `pgvector` extension already installed.

@@ -1,4 +1,5 @@
 import PiiEditor from './components/PiiEditor';
+import Dashboard from './components/Dashboard';
 
 export default function Home() {
   return (
@@ -15,6 +16,10 @@ export default function Home() {
 
         <section>
           <PiiEditor />
+        </section>
+
+        <section>
+          <Dashboard />
         </section>
       </div>
     </main>

@@ -11,3 +11,12 @@ export interface PiiResponse {
   model_used: string;
   processing_time: number;
 }
+
+export interface DocumentLog {
+  id: number;
+  full_text: string;
+  pii_entities: PiiEntity[];
+  model_used: string;
+  processing_time: number;
+  created_at: string;
+}
