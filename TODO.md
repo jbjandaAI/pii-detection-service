@@ -10,23 +10,24 @@ This document outlines the strategic plan to transition the PII Detection Servic
 - [x] **Modern UI:** Initialize a **Next.js (TypeScript)** project to replace the legacy Jinja2 templates.
 - [x] **Real-time Highlighting:** Implement a text editor that uses the `start`/`end` indices from the API to highlight PII dynamically as the user types (or on submit).
 - [x] **Dashboard:** Create a view for the Audit Logs (stored in Postgres) to visualize detection stats.
+- [ ] **Semantic Search UI:** Add a search bar to the Dashboard to leverage the `GET /search` endpoint.
 
 ## 🧠 Phase 3: Advanced Intelligence (Semantic Search)
 - [x] **Vector Embeddings:** Utilize the `pgvector` extension already installed.
 - [x] **Embedding Logic:** When saving a document, generate a vector embedding (using `nomic-embed-text`) and store it in the `documents` table.
 - [x] **Search Endpoint:** Implement `GET /search` to allow Fraud Analysts to find documents with similar patterns or context.
 
-## 🛡 Phase 4: Reliability & Quality Assurance (Current Focus)
+## 🛡 Phase 4: Reliability & Quality Assurance (Next Session)
 - [x] **Unit Testing:** Set up `pytest` and `pytest-asyncio`.
 - [x] **Mocking AI:** Create mocks for the Ollama service.
 - [x] **Validation:** Add stricter Pydantic validators.
 - [x] **Integration Testing:** Set up a test database container to verify `SQLAlchemy` and `pgvector` operations.
-- [ ] **Model Evaluation:** Create a "Golden Dataset" and a script to calculate Precision/Recall for the Ollama SLM.
-- [ ] **Edge Case Testing:** Implement tests for Prompt Injection, Max Payload, and Unicode handling.
+- [ ] **Data Drift / Accuracy:** Implement a script to evaluate model performance against a labeled dataset.
+- [ ] **Security:** Implement Rate Limiting and API Key authentication for production readiness.
 
-## 📈 Phase 4.5: Performance & Security
-- [ ] **Load Testing:** Use `Locust` to verify that the `AsyncIO` architecture handles concurrent AI requests without blocking.
-- [ ] **Security Audit:** Test for PII leakage in logs and ensure the Audit Trail is encrypted/protected.
+## ⚙️ Phase 5: DevOps (CI/CD)
+- [ ] **GitHub Actions:** Automate `pytest` execution on pull requests.
+- [ ] **Deployment:** Create Kubernetes (K8s) manifests for the full stack.
 
 
 ## ⚙️ Phase 5: DevOps (CI/CD)
