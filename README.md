@@ -19,9 +19,10 @@ This branch represents a complete architectural overhaul of the legacy PII Detec
     *   Run `ollama run gemma:2b` to pull the model.
 
 ### Installation
-1.  **Clone & Switch Branch**
+1.  **Clone the Repository**
     ```bash
-    git checkout refactor/2026-tech-stack
+    git clone https://github.com/StartUpMindset/pii-detection-service.git
+    cd pii-detection-service
     ```
 
 2.  **Start the Stack**
