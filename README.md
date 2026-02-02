@@ -6,7 +6,7 @@ This branch represents a complete architectural overhaul of the legacy PII Detec
 
 | Component | Technology | Reasoning (The "Why") |
 | :--- | :--- | :--- |
-| **Model** | **Gemma 2 (2B/9B) via Ollama** | Moves away from simple NER tagging (DeBERTa) to **Small Language Models (SLMs)**. This allows for reasoning ("Why is this PII?") and runs locally (On-Premise) ensuring no data leaves the secure network. |
+| **Model** | **Gemma 3 (1B/4B) via Ollama** | Moves away from simple NER tagging (DeBERTa) to **Small Language Models (SLMs)**. This allows for reasoning ("Why is this PII?") and runs locally (On-Premise) ensuring no data leaves the secure network. |
 | **Backend** | **FastAPI (Python 3.12)** | Replaces Flask. Provides **native AsyncIO** support for high concurrency (handling thousands of requests while the AI thinks) and **Pydantic** for strict data validation. |
 | **Database** | **PostgreSQL + pgvector** | Upgraded to support **Vector Embeddings**. This future-proofs the app for "Semantic Search" (finding similar PII leak patterns) while keeping the Audit Trail in a robust relational DB. |
 | **ORM** | **SQLAlchemy 2.0 (Async)** | Fully asynchronous database access prevents the API from blocking during heavy write operations. |
