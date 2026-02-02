@@ -7,7 +7,7 @@ This document outlines the strategic plan to transition the PII Detection Servic
 - [x] **Documentation:** Update the main `README.md` to reflect the new FastAPI + Ollama architecture.
 
 ## 🎨 Phase 2: User Experience (Frontend)
-- [ ] **Modern UI:** Initialize a **Next.js (TypeScript)** project to replace the legacy Jinja2 templates.
+- [x] **Modern UI:** Initialize a **Next.js (TypeScript)** project to replace the legacy Jinja2 templates.
 - [ ] **Real-time Highlighting:** Implement a text editor that uses the `start`/`end` indices from the API to highlight PII dynamically as the user types (or on submit).
 - [ ] **Dashboard:** Create a view for the Audit Logs (stored in Postgres) to visualize detection stats.
 
