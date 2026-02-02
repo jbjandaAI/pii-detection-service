@@ -17,9 +17,9 @@ This document outlines the strategic plan to transition the PII Detection Servic
 - [ ] **Search Endpoint:** Implement `GET /search` to allow Fraud Analysts to find documents with similar patterns or context, not just keyword matches.
 
 ## 🛡 Phase 4: Reliability & Quality Assurance
-- [ ] **Unit Testing:** Set up `pytest` and `pytest-asyncio`.
-- [ ] **Mocking AI:** Create mocks for the Ollama service to ensure tests run fast and don't depend on the local LLM.
-- [ ] **Validation:** Add stricter Pydantic validators (e.g., ensuring text length limits).
+- [x] **Unit Testing:** Set up `pytest` and `pytest-asyncio`.
+- [x] **Mocking AI:** Create mocks for the Ollama service to ensure tests run fast and don't depend on the local LLM.
+- [x] **Validation:** Add stricter Pydantic validators (e.g., ensuring text length limits).
 
 ## ⚙️ Phase 5: DevOps (CI/CD)
 - [ ] **GitHub Actions:** Create a workflow to run tests on every push.

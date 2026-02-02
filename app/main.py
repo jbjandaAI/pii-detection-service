@@ -7,13 +7,22 @@ from app.schemas.pii import PiiRequest, PiiResponse
 from app.services.pii_service import PiiService
 from app.infra.database import engine, Base, get_db
 from app.models.document import Document
+from contextlib import asynccontextmanager
 
 load_dotenv()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Create tables asynchronously
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    yield
 
 app = FastAPI(
     title="PII Detection Service 2026",
     description="Next-generation PII detection using FastAPI, pgvector, and SLMs",
-    version="2.0.0"
+    version="2.0.0",
+    lifespan=lifespan
 )
 
 # CORS configuration for React/Frontend
@@ -27,11 +36,6 @@ app.add_middleware(
 
 pii_service = PiiService()
 
-@app.on_event("startup")
-async def startup():
-    # Create tables asynchronously
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
 
 @app.post("/detect", response_model=PiiResponse)
 async def detect_pii(
@@ -47,7 +51,7 @@ async def detect_pii(
     
     # 2. Save to Database (Audit Trail)
     # Convert Pydantic models to JSON-compatible dicts for storage
-    entities_json = [entity.dict() for entity in response.entities]
+    entities_json = [entity.model_dump() for entity in response.entities]
     
     new_doc = Document(
         full_text=request.text,

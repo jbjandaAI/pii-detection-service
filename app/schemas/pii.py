@@ -8,7 +8,7 @@ class PiiEntity(BaseModel):
     end: int = Field(..., description="The character end index")
 
 class PiiRequest(BaseModel):
-    text: str = Field(..., description="The essay or text to analyze for PII")
+    text: str = Field(..., min_length=1, max_length=10000, description="The essay or text to analyze for PII")
 
 class PiiResponse(BaseModel):
     original_text: str
