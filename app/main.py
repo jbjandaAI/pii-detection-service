@@ -52,7 +52,10 @@ async def detect_pii(
     # 1. Get Prediction from AI
     response = await pii_service.detect_pii(request.text)
     
-    # 2. Save to Database (Audit Trail)
+    # 2. Get Embedding for Semantic Search
+    embedding = await pii_service.get_embedding(request.text)
+    
+    # 3. Save to Database (Audit Trail)
     # Convert Pydantic models to JSON-compatible dicts for storage
     entities_json = [entity.model_dump() for entity in response.entities]
     
@@ -60,7 +63,8 @@ async def detect_pii(
         full_text=request.text,
         pii_entities=entities_json,
         model_used=response.model_used,
-        processing_time=response.processing_time
+        processing_time=response.processing_time,
+        embedding=embedding
     )
     
     db.add(new_doc)
@@ -68,6 +72,27 @@ async def detect_pii(
     await db.refresh(new_doc)
     
     return response
+
+@app.get("/search", response_model=List[DocumentLog])
+async def search_documents(query: str, limit: int = 5, db: AsyncSession = Depends(get_db)):
+    """
+    Semantic search for documents using vector similarity.
+    """
+    # 1. Embed the search query
+    query_vector = await pii_service.get_embedding(query)
+    
+    if not query_vector:
+        raise HTTPException(status_code=500, detail="Could not generate embedding for search")
+
+    # 2. Perform vector search using cosine distance (<=>)
+    # We use Document.embedding.cosine_distance(query_vector)
+    result = await db.execute(
+        select(Document)
+        .order_by(Document.embedding.cosine_distance(query_vector))
+        .limit(limit)
+    )
+    documents = result.scalars().all()
+    return documents
 
 @app.get("/documents", response_model=List[DocumentLog])
 async def get_documents(skip: int = 0, limit: int = 20, db: AsyncSession = Depends(get_db)):

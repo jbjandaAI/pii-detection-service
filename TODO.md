@@ -12,9 +12,9 @@ This document outlines the strategic plan to transition the PII Detection Servic
 - [x] **Dashboard:** Create a view for the Audit Logs (stored in Postgres) to visualize detection stats.
 
 ## 🧠 Phase 3: Advanced Intelligence (Semantic Search)
-- [ ] **Vector Embeddings:** Utilize the `pgvector` extension already installed.
-- [ ] **Embedding Logic:** When saving a document, generate a vector embedding (using a model like `nomic-embed-text`) and store it in the `documents` table.
-- [ ] **Search Endpoint:** Implement `GET /search` to allow Fraud Analysts to find documents with similar patterns or context, not just keyword matches.
+- [x] **Vector Embeddings:** Utilize the `pgvector` extension already installed.
+- [x] **Embedding Logic:** When saving a document, generate a vector embedding (using `nomic-embed-text`) and store it in the `documents` table.
+- [x] **Search Endpoint:** Implement `GET /search` to allow Fraud Analysts to find documents with similar patterns or context.
 
 ## 🛡 Phase 4: Reliability & Quality Assurance (Current Focus)
 - [x] **Unit Testing:** Set up `pytest` and `pytest-asyncio`.

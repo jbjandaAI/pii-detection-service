@@ -7,34 +7,32 @@ from typing import List
 
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "localhost:11434")
 MODEL_NAME = os.getenv("MODEL_NAME", "gemma:2b")
+EMBED_MODEL = os.getenv("EMBED_MODEL", "nomic-embed-text")
 
 SYSTEM_PROMPT = """
-You are a PII detection tool. Extract PII from the text.
-Return ONLY valid JSON. No Markdown. No Explanations.
-
-CLASSES:
-- NAME_STUDENT (Person Names)
-- EMAIL
-- PHONE_NUM
-- ID_NUM
-- USERNAME
-
-EXAMPLE INPUT: "Call Maria Santos"
-EXAMPLE JSON:
-{
-  "entities": [
-    {"label": "NAME_STUDENT", "text": "Maria Santos"}
-  ]
-}
-
-EXAMPLE INPUT: "No PII here"
-EXAMPLE JSON:
-{
-  "entities": []
-}
+...
 """
 
 class PiiService:
+    async def get_embedding(self, text: str) -> List[float]:
+        """
+        Generate a vector embedding for the given text using Ollama.
+        """
+        url = f"http://{OLLAMA_HOST}/api/embeddings"
+        payload = {
+            "model": EMBED_MODEL,
+            "prompt": text
+        }
+
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                response = await client.post(url, json=payload)
+                response.raise_for_status()
+                return response.json().get("embedding", [])
+        except Exception as e:
+            print(f"Error generating embedding: {e}")
+            return []
+
     async def detect_pii(self, text: str) -> PiiResponse:
         start_time = time.time()
         

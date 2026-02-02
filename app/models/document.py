@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, DateTime, Text, Float
 from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 from sqlalchemy.sql import func
 from app.infra.database import Base
-# from pgvector.sqlalchemy import Vector  # Uncomment when pgvector is fully installed in the DB image
+from pgvector.sqlalchemy import Vector
 
 class Document(Base):
     __tablename__ = "documents"
@@ -19,5 +19,5 @@ class Document(Base):
     
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     
-    # Future: Store vector embedding for semantic search
-    # embedding = Column(Vector(1536)) 
+    # Store vector embedding for semantic search (e.g., nomic-embed-text uses 768)
+    embedding = Column(Vector(768), nullable=True) 
