@@ -1,39 +1,45 @@
-name: pii_detection
+name: pii_detection_2026
 services:
-  backend:
+  # The Database (Postgres + pgvector for semantic search)
+  db:
+    image: pgvector/pgvector:pg16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER:-user}
+      POSTGRES_PASSWORD: ${DB_PASS:-password}
+      POSTGRES_DB: ${DB_NAME:-pii_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-user} -d ${DB_NAME:-pii_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # The Application (FastAPI + React/Jinja)
+  api:
     build:
       context: .
-      dockerfile: deploy/backend-Dockerfile
+      dockerfile: deploy/api-Dockerfile
     ports:
-      - "5002:5002"
+      - "8000:8000"
     depends_on:
-      - ml
-    env_file: .env
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://${DB_USER:-user}:${DB_PASS:-password}@db:5432/${DB_NAME:-pii_db}
+      - OLLAMA_HOST=host.docker.internal:11434  # Connects to Ollama running on your Windows host
+      - MODEL_NAME=gemma3:1b # Corrected to Gemma 3 1B
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # Allows container to talk to localhost (Ollama)
     networks:
       - app-network
 
-  ml:
-    build:
-      context: .
-      dockerfile: deploy/ml-Dockerfile
-    ports:
-      - "5001:5001"
-    env_file: .env
-    networks:
-      - app-network
-
-  nginx:
-    build:
-      context: ./deploy  # Assuming the Dockerfile for Nginx is in the root directory
-      dockerfile: nginx-Dockerfile  # Path to your Nginx Dockerfile
-    ports:
-      - "8080:8080"
-      - "8081:8081"
-    depends_on:
-      - backend
-      - ml
-    networks:
-      - app-network
+volumes:
+  postgres_data:
 
 networks:
   app-network:
