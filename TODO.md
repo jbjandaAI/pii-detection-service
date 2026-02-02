@@ -16,10 +16,18 @@ This document outlines the strategic plan to transition the PII Detection Servic
 - [ ] **Embedding Logic:** When saving a document, generate a vector embedding (using a model like `nomic-embed-text`) and store it in the `documents` table.
 - [ ] **Search Endpoint:** Implement `GET /search` to allow Fraud Analysts to find documents with similar patterns or context, not just keyword matches.
 
-## 🛡 Phase 4: Reliability & Quality Assurance
+## 🛡 Phase 4: Reliability & Quality Assurance (Current Focus)
 - [x] **Unit Testing:** Set up `pytest` and `pytest-asyncio`.
-- [x] **Mocking AI:** Create mocks for the Ollama service to ensure tests run fast and don't depend on the local LLM.
-- [x] **Validation:** Add stricter Pydantic validators (e.g., ensuring text length limits).
+- [x] **Mocking AI:** Create mocks for the Ollama service.
+- [x] **Validation:** Add stricter Pydantic validators.
+- [x] **Integration Testing:** Set up a test database container to verify `SQLAlchemy` and `pgvector` operations.
+- [ ] **Model Evaluation:** Create a "Golden Dataset" and a script to calculate Precision/Recall for the Ollama SLM.
+- [ ] **Edge Case Testing:** Implement tests for Prompt Injection, Max Payload, and Unicode handling.
+
+## 📈 Phase 4.5: Performance & Security
+- [ ] **Load Testing:** Use `Locust` to verify that the `AsyncIO` architecture handles concurrent AI requests without blocking.
+- [ ] **Security Audit:** Test for PII leakage in logs and ensure the Audit Trail is encrypted/protected.
+
 
 ## ⚙️ Phase 5: DevOps (CI/CD)
 - [ ] **GitHub Actions:** Create a workflow to run tests on every push.
