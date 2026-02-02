@@ -3,8 +3,8 @@
 This document outlines the strategic plan to transition the PII Detection Service from a verified prototype to a production-grade enterprise application.
 
 ## 🚀 Phase 1: Consolidation (Immediate)
-- [ ] **Merge Refactor Branch:** Open a Pull Request (PR) to merge `refactor/2026-tech-stack` into `main`.
-- [ ] **Documentation:** Update the main `README.md` to reflect the new FastAPI + Ollama architecture.
+- [x] **Merge Refactor Branch:** Open a Pull Request (PR) to merge `refactor/2026-tech-stack` into `main`.
+- [x] **Documentation:** Update the main `README.md` to reflect the new FastAPI + Ollama architecture.
 
 ## 🎨 Phase 2: User Experience (Frontend)
 - [ ] **Modern UI:** Initialize a **Next.js (TypeScript)** project to replace the legacy Jinja2 templates.
