@@ -21,7 +21,7 @@ This branch represents a complete architectural overhaul of the legacy PII Detec
 ### Installation
 1.  **Clone the Repository**
     ```bash
-    git clone https://github.com/StartUpMindset/pii-detection-service.git
+    git clone https://github.com/jbjandaAI/pii-detection-service.git
     cd pii-detection-service
     ```
 
@@ -40,7 +40,7 @@ The core endpoint. Accepts raw text and returns structured PII entities.
 **Request:**
 ```json
 {
-  "text": "My name is Juan dela Cruz and my email is juan@bpi.com.ph"
+  "text": "My name is Juan dela Cruz and my email is juan@up.edu.ph"
 }
 ```
 
@@ -57,7 +57,7 @@ The core endpoint. Accepts raw text and returns structured PII entities.
     },
     {
       "label": "EMAIL",
-      "text": "juan@bpi.com.ph",
+      "text": "juan@up.edu.ph",
       "start": 42,
       "end": 57
     }
