@@ -14,7 +14,7 @@ class Document(Base):
     pii_entities = Column(JSONB, nullable=True)
     
     # Metadata
-    model_used = Column(String, default="gemma:2b")
+    model_used = Column(String, default="gemma3:1b")
     processing_time = Column(Float, nullable=True)
     
     created_at = Column(DateTime(timezone=True), server_default=func.now())

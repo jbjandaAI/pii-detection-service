@@ -9,8 +9,8 @@ This is a classic "Small Language Model" constraint. Your laptop has 4.8 GB of f
   Step 1: Pull the 2B Model
   Open your terminal (PowerShell or Command Prompt) and run:
 
-   1 ollama run gemma:2b
-  (Or `ollama run gemma2:2b` if available. The standard `gemma:2b` usually refers to the latest stable lightweight version).
+   1 ollama run gemma3:1b
+  (Or `ollama run gemma2:2b` if available. The standard `gemma3:1b` usually refers to the latest stable lightweight version).
 
   Step 2: Verify it works
   Once it loads and you see the prompt >>>, type:
@@ -21,7 +21,7 @@ This is a classic "Small Language Model" constraint. Your laptop has 4.8 GB of f
   I already set this up for you in the docker-compose.yaml file I created:
 
    1     environment:
-   2       - MODEL_NAME=gemma:2b  <-- This matches the model we just pulled
+   2       - MODEL_NAME=gemma3:1b  <-- This matches the model we just pulled
 
   Interview Talking Point:
   If this comes up in the interview, this is actually a great talking point:

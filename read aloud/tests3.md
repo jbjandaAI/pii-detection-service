@@ -27,7 +27,7 @@ To test if the application is working, you need to run the full stack (Database,
 
   Troubleshooting
    * Ollama Connection: Since the backend talks to Ollama on your host machine, ensure Ollama is running (ollama serve or via the
-     tray icon) and that you have pulled the model (ollama run gemma:2b).
+     tray icon) and that you have pulled the model (ollama run gemma3:1b).
    * Docker Network: If the backend complains it can't reach Ollama, verify that host.docker.internal is working (standard on Docker
      Desktop for Windows).
 

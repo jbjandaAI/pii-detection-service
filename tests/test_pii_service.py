@@ -24,7 +24,7 @@ async def test_detect_pii_success():
         assert len(result.entities) == 1
         assert result.entities[0].text == "Juan dela Cruz"
         assert result.entities[0].label == "NAME_STUDENT"
-        assert result.model_used == "gemma:2b"
+        assert result.model_used == "gemma3:1b"
 
 @pytest.mark.asyncio
 async def test_detect_pii_empty():

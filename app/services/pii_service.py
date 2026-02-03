@@ -6,7 +6,7 @@ from app.schemas.pii import PiiResponse, PiiEntity
 from typing import List
 
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "localhost:11434")
-MODEL_NAME = os.getenv("MODEL_NAME", "gemma:2b")
+MODEL_NAME = os.getenv("MODEL_NAME", "gemma3:1b")
 EMBED_MODEL = os.getenv("EMBED_MODEL", "nomic-embed-text")
 
 SYSTEM_PROMPT = """

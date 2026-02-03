@@ -9,7 +9,7 @@ Congratulations! You now have a fully refactored "2026 Tech Stack" backend.
 
   How to verify (for your own testing):
    1. Install Ollama on your Windows machine (ollama.com).
-   2. Run ollama run gemma:2b in a separate terminal.
+   2. Run ollama run gemma3:1b in a separate terminal.
    3. Run docker-compose up --build.
    4. Send a POST request to http://localhost:8000/detect.
 

@@ -15,7 +15,7 @@ To remove (undownload) the model and free up that 3GB of space, follow these ste
    1 ollama run gemma:1b
 
   3. Update your Code to use the 1B Model
-  Since we hardcoded gemma:2b or gemma:4b earlier, we should update the docker-compose.yaml so the API knows to call the 1b version.
+  Since we hardcoded gemma3:1b or gemma:4b earlier, we should update the docker-compose.yaml so the API knows to call the 1b version.
 
   I will update the docker-compose.yaml for you now.
   I have updated your configuration to use Gemma 1B.

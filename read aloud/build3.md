@@ -1,5 +1,5 @@
 I will create a new service file app/services/pii_service.py. This service will be responsible for sending the user's essay to your local Ollama
-  instance (likely running gemma:2b or llama3) and parsing the JSON response.
+  instance (likely running gemma3:1b or llama3) and parsing the JSON response.
 
   I will also create a Pydantic model for the request/response to ensure type safety.
 

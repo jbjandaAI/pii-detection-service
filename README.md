@@ -16,7 +16,7 @@ This branch represents a complete architectural overhaul of the legacy PII Detec
 ### Prerequisites
 1.  **Docker Desktop** installed.
 2.  **Ollama** installed on your host machine (Windows/Mac/Linux).
-    *   Run `ollama run gemma:2b` to pull the model.
+    *   Run `ollama run gemma3:1b` to pull the model.
 
 ### Installation
 1.  **Clone the Repository**
@@ -62,7 +62,7 @@ The core endpoint. Accepts raw text and returns structured PII entities.
       "end": 57
     }
   ],
-  "model_used": "gemma:2b",
+  "model_used": "gemma3:1b",
   "processing_time": 0.45
 }
 ```
