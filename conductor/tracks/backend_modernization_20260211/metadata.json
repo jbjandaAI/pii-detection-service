@@ -1,0 +1,8 @@
+﻿{
+  "track_id": "backend_modernization_20260211",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-02-11T21:55:00Z",
+  "updated_at": "2026-02-11T21:55:00Z",
+  "description": "Core Backend Modernization: Implement the base FastAPI application structure with Pydantic Logfire observability and Taskiq background worker scaffolding."
+}
